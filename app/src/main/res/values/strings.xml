@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <!-- Name for the application [CHAR LIMIT=12] -->
+    <string name="app_name">Inventory</string>
+
+    <!-- Label for overflow menu option that deletes all products data in the app -->
+    <string name="action_delete_all_entries">Delete All Products</string>
+
+    <!-- Title text for the empty view -->
+    <string name="empty_view_title_text">Oh, Your inventory is empty...</string>
+
+    <!-- Subtitle text for the empty view that prompts the user to add a product -->
+    <string name="empty_view_subtitle_text">Get started by adding a product</string>
+
+    <!-- Title for the activity to add a new product -->
+    <string name="editor_activity_title_new_product">Add a product</string>
+
+    <!-- Title for the activity to edit an existing product -->
+    <string name="editor_activity_title_edit_product">Edit Product</string>
+
+    <!-- Label for editor menu option to save product and leave editor -->
+    <string name="action_save">Save</string>
+
+    <!-- Label for editor overflow menu option that deletes the current product -->
+    <string name="action_delete">Delete</string>
+
+    <!-- Label for editor overflow menu option that Order from the supplier the current product -->
+    <string name="action_order">Order from the supplier</string>
+
+    <!-- Toast message in editor when new product has been successfully inserted -->
+    <string name="editor_insert_product_successful">Product saved</string>
+
+    <!-- Toast message in editor when new product has failed to be inserted-->
+    <string name="editor_insert_product_failed">Error with saving product</string>
+
+    <!-- Toast message in editor when current product was successfully updated -->
+    <string name="editor_update_product_successful">Product updated</string>
+
+    <!-- Toast message in editor when current product has failed to be updated -->
+    <string name="editor_update_product_failed">Error with updating product</string>
+
+    <!-- Toast message in editor when quantity ordered less than quantity available -->
+    <string name="toast_order_more">You need to order more than </string>
+
+    <!-- Toast message in editor when product is empty -->
+    <string name="toast_inventory_empty">Oh, this product is empty \nOrder it from supplier</string>
+
+    <!-- Toast message in editor when the sale quantity more the quantity available -->
+    <string name="toast_sale_quantity_more">You can\'t sale more than</string>
+
+    <!-- Dialog message when user is leaving editor but hasn't saved changes -->
+    <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
+
+    <!-- Dialog button text for the option to discard a user's changes -->
+    <string name="discard">Discard</string>
+
+    <!-- Dialog button text for the option to keep editing the current product -->
+    <string name="keep_editing">Keep Editing</string>
+
+    <!-- Toast message in editor when current product was successfully deleted -->
+    <string name="editor_delete_product_successful">Product deleted</string>
+
+    <!-- Toast message in editor when current product has failed to be delete -->
+    <string name="editor_delete_product_failed">Error with deleting product</string>
+
+    <!-- Dialog message to ask the user to confirm deleting the current product -->
+    <string name="delete_dialog_msg">Delete this product?</string>
+
+    <!-- Dialog button text for the option to confirm deleting the current product -->
+    <string name="delete">Delete</string>
+
+    <!-- Dialog button text for the option to cancel deletion of the current product -->
+    <string name="cancel">Cancel</string>
+
+    <!-- Text hint for name field in the editor -->
+    <string name="hint_product_name">Name</string>
+
+    <!-- Text hint for price field in the editor -->
+    <string name="hint_product_price">Price</string>
+
+    <!-- Text hint for quantity field in the editor -->
+    <string name="hint_product_quantity">Quantity</string>
+
+    <!-- Text hint for supplier field in the editor -->
+    <string name="hint_product_supplier">Supplier</string>
+
+    <!-- Text hint for supplier Email field in the editor -->
+    <string name="hint_product_supplier_email">Supplier Email</string>
+
+    <!-- TextView for name -->
+    <string name="textview_name">Name: </string>
+
+    <!-- TextView for price -->
+    <string name="textview_price">Price: </string>
+
+    <!-- TextView for quantity -->
+    <string name="textview_quantity">Quantity: </string>
+
+    <!-- TextView for supplier -->
+    <string name="textview_supplier">Supplier: </string>
+
+    <!-- TextView for supplier email -->
+    <string name="textview_supplier_email">Supplier Email: </string>
+
+    <!-- TextView for sale quantity -->
+    <string name="textview_sale_quantity">0</string>
+
+    <!-- Button text for sale -->
+    <string name="sale_button">Sale</string>
+
+    <!-- Button text for increase -->
+    <string name="button_increase_quantity">+</string>
+
+    <!-- Button text for decrease -->
+    <string name="button_decrease_quantity">-</string>
+
+    <!-- Button text for select picture -->
+    <string name="button_select_picture">Select Picture</string>
+
+</resources>
