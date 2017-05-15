@@ -15,14 +15,18 @@
  */
 package com.example.inventory.inventoryapp;
 
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.text.TextUtils;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.example.inventory.inventoryapp.data.InventoryContract.ProductEntry;
 
 
@@ -32,6 +36,10 @@ import com.example.inventory.inventoryapp.data.InventoryContract.ProductEntry;
  * how to create list items for each row of product data in the {@link Cursor}.
  */
 public class InventoryCursorAdapter extends CursorAdapter {
+
+    // Get current quantity from DB
+    private Uri mCurrentProductUri;
+
 
     /**
      * Constructs a new {@link InventoryCursorAdapter}.
@@ -68,7 +76,12 @@ public class InventoryCursorAdapter extends CursorAdapter {
      *                correct row.
      */
     @Override
-    public void bindView(View view, Context context, Cursor cursor) {
+    public void bindView(View view, final Context context, final Cursor cursor) {
+
+
+        // Get current position
+        final int position = cursor.getPosition();
+
         // Find individual views that we want to modify in the list item layout
         TextView nameTextView = (TextView) view.findViewById(R.id.name);
         TextView quantityTextView = (TextView) view.findViewById(R.id.quantity);
@@ -84,9 +97,82 @@ public class InventoryCursorAdapter extends CursorAdapter {
         String productQuantity = cursor.getString(quantityColumnIndex);
         String productPrice = cursor.getString(priceColumnIndex);
 
+
         // Update the TextViews with the attributes for the current product
         nameTextView.setText(productName);
         quantityTextView.setText(productQuantity);
         priceTextView.setText(productPrice);
+
+        /*
+         * Order button
+         * make the button onClickListener
+         * once click reduce the quantity by 1
+         */
+        Button button = (Button) view.findViewById(R.id.order_button);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                // Move to the position of the cursor
+                cursor.moveToPosition(position);
+
+                // Find the columns of product attributes that we're interested in
+                // Find the columns of product attributes that we're interested in
+                int idColumnIndex = cursor.getColumnIndex(ProductEntry._ID);
+                int nameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME);
+                int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
+                int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
+                int supplierColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_SUPPLIER);
+                int supplierEmailColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_SUPPLIER_EMAIL);
+                int pictureColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PICTURE);
+
+                // Extract out the value from the Cursor for the given column index
+                int id = cursor.getInt(idColumnIndex);
+                String name = cursor.getString(nameColumnIndex);
+                int price = cursor.getInt(priceColumnIndex);
+                int quantity = cursor.getInt(quantityColumnIndex);
+                String supplier = cursor.getString(supplierColumnIndex);
+                String supplierEmail = cursor.getString(supplierEmailColumnIndex);
+                byte[] picture = cursor.getBlob(pictureColumnIndex);
+
+
+                // Get current uri for the product
+                mCurrentProductUri = ContentUris.withAppendedId(ProductEntry.CONTENT_URI, id);
+
+
+                if (quantity != 0) {
+
+                    quantity = quantity - 1;
+
+                    // Create a ContentValues object where column names are the keys,
+                    // and product attributes from the editor are the values.
+                    ContentValues values = new ContentValues();
+
+                    values.put(ProductEntry.COLUMN_PRODUCT_NAME, name);
+
+                    values.put(ProductEntry.COLUMN_PRODUCT_PRICE, price);
+
+                    values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantity);
+
+                    values.put(ProductEntry.COLUMN_PRODUCT_SUPPLIER, supplier);
+
+                    values.put(ProductEntry.COLUMN_PRODUCT_SUPPLIER_EMAIL, supplierEmail);
+
+                    values.put(ProductEntry.COLUMN_PRODUCT_PICTURE, picture);
+
+                    // Update the quantity index and notify the cursor for the change
+                    context.getContentResolver().update(mCurrentProductUri, values, null, null);
+
+                    // Set notification URI on the Cursor,
+                    // so we know what content URI the Cursor was created for.
+                    // If the data at this URI changes, then we know we need to update the Cursor.
+                    cursor.setNotificationUri(context.getContentResolver(), mCurrentProductUri);
+
+                } else {
+                    Toast.makeText(context, context.getString(R.string.toast_product_empty), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

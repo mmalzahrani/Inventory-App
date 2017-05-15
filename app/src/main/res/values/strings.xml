@@ -49,6 +49,12 @@
     <!-- Toast message in editor when the sale quantity more the quantity available -->
     <string name="toast_sale_quantity_more">You can\'t sale more than</string>
 
+    <!-- Toast message in editor when any field is empty -->
+    <string name="toast_field_empty">Make sure all fields are filled</string>
+
+    <!-- Toast message in adapter when press Order button and the product is empty -->
+    <string name="toast_product_empty">Product not available</string>
+
     <!-- Dialog message when user is leaving editor but hasn't saved changes -->
     <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
 
@@ -117,5 +123,8 @@
 
     <!-- Button text for select picture -->
     <string name="button_select_picture">Select Picture</string>
+
+    <!-- Button text for Order in List item -->
+    <string name="button_order_item">Order</string>
 
 </resources>

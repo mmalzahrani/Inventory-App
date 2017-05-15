@@ -179,6 +179,7 @@ public class EditorActivity extends AppCompatActivity implements
         String quantityString = mQuantityEditText.getText().toString().trim();
         String supplierString = mSupplier.getText().toString().trim();
         String supplierEmailString = mSupplierEmail.getText().toString().trim();
+        String pictureString = mPicture.toString().trim();
 
         // Enable DrawingCache
         mPicture.buildDrawingCache(true);
@@ -192,11 +193,12 @@ public class EditorActivity extends AppCompatActivity implements
         // Check if this is supposed to be a new product
         // and check if all the fields in the editor are blank
         if (mCurrentProductUri == null &&
-                TextUtils.isEmpty(nameString) && TextUtils.isEmpty(priceString) &&
-                TextUtils.isEmpty(quantityString) && TextUtils.isEmpty(supplierString) &&
-                TextUtils.isEmpty(supplierEmailString)){
+                TextUtils.isEmpty(nameString) || TextUtils.isEmpty(priceString) ||
+                TextUtils.isEmpty(quantityString) || TextUtils.isEmpty(supplierString) ||
+                TextUtils.isEmpty(supplierEmailString) || TextUtils.isEmpty(pictureString)){
             // Since no fields were modified, we can return early without creating a new product.
-            // No need to create ContentValues and no need to do any ContentProvider operations.
+
+            Toast.makeText(this, getString(R.string.toast_field_empty), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -412,6 +414,8 @@ public class EditorActivity extends AppCompatActivity implements
             mSupplier.setText(supplier);
             mSupplierEmail.setText(supplierEmail);
             // Convert the picture from byte[] to Bitmap
+
+            quantityDB = quantity;
             Bitmap bitmapPicture = DbBitmapUtility.getImage(picture);
             mPicture.setImageBitmap(bitmapPicture);
 
@@ -558,7 +562,6 @@ public class EditorActivity extends AppCompatActivity implements
     // To increase sale quantity by 1
     public void increaseSaleQuantity(View v)
     {
-
         saleQuantity = saleQuantity + 1;
 
         if (quantityDB == 0) {
@@ -569,6 +572,10 @@ public class EditorActivity extends AppCompatActivity implements
         else if (saleQuantity > quantityDB){
             saleQuantity = quantityDB;
             Toast.makeText(this, getString(R.string.toast_sale_quantity_more) + quantityDB, Toast.LENGTH_SHORT).show();
+        }
+        else {
+            // To updated Quantity field by increase 1
+            mQuantityEditText.setText("" + (quantityDB - saleQuantity));
         }
 
         TextView saleQuantityTextView = (TextView) findViewById(R.id.text_sale_quantity);
@@ -585,6 +592,10 @@ public class EditorActivity extends AppCompatActivity implements
 
         if (saleQuantity < 0)
             saleQuantity = 0;
+        else {
+            // To updated Quantity field by decrease 1
+            mQuantityEditText.setText("" + (quantityDB - saleQuantity));
+        }
 
         TextView saleQuantityTextView = (TextView) findViewById(R.id.text_sale_quantity);
         saleQuantityTextView.setText("" + saleQuantity);
@@ -603,7 +614,11 @@ public class EditorActivity extends AppCompatActivity implements
         // Update Database
         saveProduct();
 
+        // To reset saleQuantity counter
+        saleQuantity = 0;
+
     }
+
     /*
      *pic method
      * This method to open the pictures from youser device to select the product picture

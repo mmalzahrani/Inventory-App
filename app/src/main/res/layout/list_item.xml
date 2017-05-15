@@ -17,8 +17,11 @@
         android:textAppearance="?android:textAppearanceMedium"
         android:textColor="#2B3D4D"  />
 
+    <!-- descendantFocusability = blocksDescendants -->
+    <!-- To make every activity click individual -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:descendantFocusability="blocksDescendants"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
@@ -26,9 +29,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
+            android:text="@string/textview_quantity"
             android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="#AEB6BD"
-            android:text="@string/textview_quantity"/>
+            android:textColor="#AEB6BD" />
 
         <TextView
             android:id="@+id/quantity"
@@ -36,16 +39,16 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
             android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="#AEB6BD"/>
+            android:textColor="#AEB6BD" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="#AEB6BD"
             android:paddingLeft="16dp"
-            android:text="@string/textview_price"/>
+            android:text="@string/textview_price"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="#AEB6BD" />
 
         <TextView
             android:id="@+id/price"
@@ -53,8 +56,22 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
             android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="#AEB6BD"/>
+            android:textColor="#AEB6BD" />
 
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right">
+
+            <Button
+                android:id="@+id/order_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="10dp"
+                android:text="@string/button_order_item" />
+
+        </LinearLayout>
     </LinearLayout>
 
 
